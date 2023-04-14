@@ -1,6 +1,7 @@
 public class Cricket : Pet
 {
     private string name = "Cricket";
+    private bool minion = false;
     public Cricket() : base(1, 2) { }
 
     public override Pet Clone()
@@ -14,6 +15,10 @@ public class Cricket : Pet
 
     public override void OnDie(Team self, Team other, Shop shop)
     {
+        if (this.minion)
+            return;
+        
+        this.minion = true;
         this.name = "~Cricket";
         this.Attack = this.Level;
         this.Life = this.Level;
@@ -27,5 +32,5 @@ public class Cricket : Pet
     }
 
     public override string ToString()
-        => $"{name} {Attack}/{Life}";
+        => this.Life < 1 ? "" : $"{name} {Attack}/{Life}";
 }

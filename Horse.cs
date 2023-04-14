@@ -15,5 +15,5 @@ public class Horse : Pet
         => summoned.Buff(this.Level, 0);
 
     public override string ToString()
-        => $"Horse {Attack}/{Life}";
+        => this.Life < 1 ? "" : $"Horse {Attack}/{Life}";
 }

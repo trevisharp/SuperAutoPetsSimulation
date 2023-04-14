@@ -46,12 +46,18 @@ public class Team : IEnumerable<Pet>
         return clone;
     }
 
-    public Pet GetRandomPet()
+    public Pet GetRandomPet(Pet exclude = null)
     {
         int size = 0;
         for (int i = 0; i < 5; i++)
         {
-            if (team is null)
+            if (team[i] is null)
+                continue;
+            
+            if (team[i] == exclude)
+                continue;
+            
+            if (team[i].Life < 1)
                 continue;
             
             size++;
@@ -60,8 +66,25 @@ public class Team : IEnumerable<Pet>
         if (size == 0)
             return null;
 
-        int index = Random.Shared.Next(5);
-        return this.team[index];
+        int index = Random.Shared.Next(size);
+        
+        for (int i = 0; i < 5; i++)
+        {
+            if (team[i] is null)
+                continue;
+            
+            if (team[i] == exclude)
+                continue;
+            
+            if (team[i].Life < 1)
+                continue;
+
+            if (index == 0)
+                return this.team[i];
+            
+            index--;
+        }
+        return null;
 
     }
 

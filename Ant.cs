@@ -1,6 +1,6 @@
 public class Ant : Pet
 {
-    public Ant() :  base(2, 3) { }
+    public Ant() :  base(2, 1) { }
 
     public override Pet Clone()
     {
@@ -13,12 +13,12 @@ public class Ant : Pet
 
     public override void OnDie(Team self, Team other, Shop shop)
     {
-        var ally = self.GetRandomPet();
+        var ally = self.GetRandomPet(this);
         if (ally is null)
             return;
         ally.Buff(2 * this.Level, this.Level);
     }
 
     public override string ToString()
-        => $"Ant {Attack}/{Life}";
+        => this.Life < 1 ? "" : $"Ant {Attack}/{Life}";
 }
