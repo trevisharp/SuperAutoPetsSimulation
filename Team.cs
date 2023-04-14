@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 public class Team : IEnumerable<Pet>
 {
@@ -44,6 +46,25 @@ public class Team : IEnumerable<Pet>
         return clone;
     }
 
+    public Pet GetRandomPet()
+    {
+        int size = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            if (team is null)
+                continue;
+            
+            size++;
+        }
+
+        if (size == 0)
+            return null;
+
+        int index = Random.Shared.Next(5);
+        return this.team[index];
+
+    }
+
     public IEnumerator<Pet> GetEnumerator()
     {
         for (int i = 0; i < 5; i++)
@@ -57,4 +78,42 @@ public class Team : IEnumerable<Pet>
 
     IEnumerator IEnumerable.GetEnumerator()
         => GetEnumerator();
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+
+        for (int i = 0; i < 5; i++)
+        {
+            var str = this.team[i]?.ToString() ?? "";
+            while (str.Length < 10)
+                str = " " + str + " ";
+            sb.Append(str);
+            sb.Append("\t");
+        }
+
+        return sb.ToString();
+    }
+
+    public static Team FromPets(params Pet[] pets)
+    {
+        Team team = new Team();
+        for (int i = 0; i < pets.Length && i < 5; i++)
+            team.team[i] = pets[i];
+        return team;
+    }
+
+    public static Team FromPets(IEnumerable<Pet> pets)
+    {
+        var it = pets.GetEnumerator();
+        int index = 0;
+
+        Team team = new Team();
+        while (it.MoveNext() && index < 5)
+        {
+            team.team[index] = it.Current;
+            index++;
+        }
+        return team;
+    }
 }

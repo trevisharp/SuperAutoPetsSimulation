@@ -1,9 +1,9 @@
 public abstract class Pet
 {
-    public Pet(int life, int attack)
+    public Pet(int attack, int life)
     {
-        this.Life = life;
         this.Attack = attack;
+        this.Life = life;
     }
 
     public int Life { get; protected set; }
@@ -26,6 +26,12 @@ public abstract class Pet
     public void ReciveDamage(int damage)
     {
         this.Life -= damage;
+    }
+
+    public void Buff(int attack, int life)
+    {
+        this.Attack += attack;
+        this.Life += life;
     }
 
     public virtual void AfterAttack(Team self, Team other, Shop shop) { }

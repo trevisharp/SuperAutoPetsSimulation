@@ -17,6 +17,9 @@ public class Shop
         where T : Pet
         => this.possibles.Add(Activator.CreateInstance<T>());
     
+    public void Register(Tier tier)
+        => this.possibles.AddRange(tier);
+
     private Pet getRandomPet()
         => possibles[Random.Shared.Next(possibles.Count)];
 

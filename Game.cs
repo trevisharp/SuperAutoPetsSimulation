@@ -6,7 +6,6 @@ public class Game
     {
         this.Team = new Team();
         this.Shop = new Shop();
-        this.Shop.Refill();
     }
 
     public Team Team { get; set; }

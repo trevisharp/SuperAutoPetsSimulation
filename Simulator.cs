@@ -23,16 +23,16 @@ public static class Simulator
 
             if (it.Current.Life < 1)
             {
-                it.Current.OnDie(teamA, teamB, null);
                 if (!it.MoveNext())
                     yield break;
+                it.Current.OnDie(teamA, teamB, null);
             }
 
             if (ie.Current.Life < 1)
             {
-                ie.Current.OnDie(teamB, teamA, null);
                 if (!ie.MoveNext())
                     yield break;
+                ie.Current.OnDie(teamB, teamA, null);
             }
 
             yield return (team, enem);

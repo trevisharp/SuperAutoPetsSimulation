@@ -1,3 +1,7 @@
 ﻿using static System.Console;
 
-Game game = new Game();
+var tier = new StandarTierOne();
+foreach (var comp in Compositions.FromTier(tier, 3))
+{
+    WriteLine(comp);
+}
