@@ -21,4 +21,6 @@ public class Ant : Pet
 
     public override string ToString()
         => this.Life < 1 ? "" : $"Ant {Attack}/{Life}";
+
+    public static Ant New => new Ant();
 }

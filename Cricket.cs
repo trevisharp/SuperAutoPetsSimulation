@@ -33,4 +33,6 @@ public class Cricket : Pet
 
     public override string ToString()
         => this.Life < 1 ? "" : $"{name} {Attack}/{Life}";
+
+    public static Cricket New => new Cricket();
 }

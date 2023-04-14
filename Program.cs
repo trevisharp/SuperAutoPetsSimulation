@@ -1,18 +1,17 @@
 ﻿using static System.Console;
 
-var tier = new StandarTierOne();
-var comps = Compositions.FromTier(tier, 3);
-var it = comps.GetEnumerator();
+battle(
+    Team.FromPets(Cricket.New, Cricket.New, Horse.New),
+    Team.FromPets(Cricket.New, Cricket.New, Cricket.New)
+);
 
-it.MoveNext();
-var fst = it.Current;
 
-it.MoveNext();
-var scn = it.Current;
-
-foreach (var (a, b) in Simulator.Play(fst, scn))
+void battle(Team t1, Team t2)
 {
-    WriteLine(a);
-    WriteLine(b);
-    WriteLine();
+    foreach (var (a, b) in Simulator.Play(t1, t2))
+    {
+        WriteLine(a);
+        WriteLine(b);
+        WriteLine();
+    }
 }

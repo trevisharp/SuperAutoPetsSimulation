@@ -16,4 +16,6 @@ public class Horse : Pet
 
     public override string ToString()
         => this.Life < 1 ? "" : $"Horse {Attack}/{Life}";
+
+    public static Horse New => new Horse();
 }
