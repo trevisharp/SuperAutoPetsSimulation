@@ -1,3 +1,3 @@
 ﻿using static System.Console;
 
-WriteLine("Hello, World!");
+Game game = new Game();
