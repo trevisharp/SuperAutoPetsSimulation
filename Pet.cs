@@ -37,4 +37,5 @@ public abstract class Pet
     public virtual void AfterAttack(Team self, Team other, Shop shop) { }
     public virtual void BeforeAttack(Team self, Team other, Shop shop) { }
     public virtual void OnDie(Team self, Team other, Shop shop) { }
+    public virtual void OnAllySummoned(Team self, Team other, Shop shop, Pet summoned) { }
 }

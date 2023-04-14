@@ -18,9 +18,11 @@ public static class Compositions
         
         while (true)
         {
+            index = 0;
             while (!its[index].MoveNext())
             {
                 its[index] = tier.GetEnumerator();
+                its[index].MoveNext();
                 index++;
                 if (index == size)
                     yield break;

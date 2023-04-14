@@ -2,8 +2,6 @@ public class Ant : Pet
 {
     public Ant() :  base(2, 3) { }
 
-    public Ant(int attack, int life) : base(attack, life) { }
-
     public override Pet Clone()
     {
         Ant ant = new Ant();
