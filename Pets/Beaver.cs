@@ -11,8 +11,5 @@ public class Beaver : Pet
         return beaver;
     }
 
-    public override string ToString()
-        => this.Life < 1 ? "" : $"Beaver {Attack}/{Life}";
-
     public static Beaver New => new Beaver();
 }

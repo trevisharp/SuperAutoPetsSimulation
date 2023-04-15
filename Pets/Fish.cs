@@ -11,8 +11,5 @@ public class Fish : Pet
         return fish;
     }
 
-    public override string ToString()
-        => this.Life < 1 ? "" : $"Fish {Attack}/{Life}";
-
     public static Fish New => new Fish();
 }

@@ -19,8 +19,5 @@ public class Ant : Pet
         ally.Buff(2 * this.Level, this.Level);
     }
 
-    public override string ToString()
-        => this.Life < 1 ? "" : $"Ant {Attack}/{Life}";
-
     public static Ant New => new Ant();
 }

@@ -17,8 +17,5 @@ public class Mosquito : Pet
         pet.ReciveDamage(1);
     }
 
-    public override string ToString()
-        => this.Life < 1 ? "" : $"Mosquito {Attack}/{Life}";
-
     public static Mosquito New => new Mosquito();
 }
