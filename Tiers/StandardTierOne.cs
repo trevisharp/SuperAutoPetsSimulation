@@ -12,5 +12,6 @@ public class StandarTierOne : Tier
         yield return new Fish();
         yield return new Mosquito();
         yield return new Pig();
+        yield return new Otter();
     }
 }
