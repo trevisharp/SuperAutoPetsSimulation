@@ -1,18 +1,40 @@
+using System.Linq;
 using System.Collections.Generic;
 
 public static class Simulator
 {
     public static IEnumerable<(Team, Team)> Play(Team teamA, Team teamB)
     {
-        var team = teamA.Clone();
-        var enem = teamB.Clone();
+        yield return (teamA, teamB);
 
-        var it = team.GetEnumerator();
-        var ie = enem.GetEnumerator();
+        var pets = 
+            from pet in teamA.Concat(teamB)
+            orderby pet.Attack descending
+            select pet;
 
-        yield return (team, enem);
+        foreach (var pet in pets)
+        {
+            if (teamA.Contains(pet))
+                pet.OnBattleStart(teamA, teamB);
+            else pet.OnBattleStart(teamB, teamA);
+        }
+
+        foreach (var pet in pets)
+        {
+            if (pet.Life < 1)
+            {
+                var died = pet;
+                if (teamA.Contains(died))
+                    died.OnDie(teamA, teamB, null);
+                else died.OnDie(teamB, teamA, null);
+            }
+        }
+
+        var it = teamA.GetEnumerator();
+        var ie = teamB.GetEnumerator();
         it.MoveNext();
         ie.MoveNext();
+        yield return (teamA, teamB);
         
         while (true)
         {
@@ -20,7 +42,7 @@ public static class Simulator
             {
                 if (!it.MoveNext())
                 {
-                    yield return (team, enem);
+                    yield return (teamA, teamB);
                     yield break;
                 }
             }
@@ -29,33 +51,33 @@ public static class Simulator
             {
                 if (!ie.MoveNext())
                 {
-                    yield return (team, enem);
+                    yield return (teamA, teamB);
                     yield break;
                 }
             }
 
-            it.Current.BeforeAttack(team, enem, null);
-            ie.Current.BeforeAttack(enem, team, null);
+            it.Current.BeforeAttack(teamA, teamB, null);
+            ie.Current.BeforeAttack(teamB, (Team)teamA, null);
 
             it.Current.AttackPet(ie.Current);
             ie.Current.AttackPet(it.Current);
             
-            it.Current.AfterAttack(team, enem, null);
-            ie.Current.AfterAttack(enem, team, null);
+            it.Current.AfterAttack(teamA, teamB, null);
+            ie.Current.AfterAttack(teamB, (Team)teamA, null);
 
             if (it.Current.Life < 1)
             {
                 var died = it.Current;
-                died.OnDie(team, enem, null);
+                died.OnDie(teamA, teamB, null);
             }
 
             if (ie.Current.Life < 1)
             {
                 var died = ie.Current;
-                died.OnDie(enem, team, null);
+                died.OnDie(teamB, (Team)teamA, null);
             }
 
-            yield return (team, enem);
+            yield return (teamA, teamB);
         }
     }
 }

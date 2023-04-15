@@ -12,10 +12,12 @@ public class Horse : Pet
     }
 
     public override void OnAllySummoned(Team self, Team other, Shop shop, Pet summoned)
-        => summoned.Buff(this.Level, 0);
-
-    public override string ToString()
-        => this.Life < 1 ? "" : $"Horse {Attack}/{Life}";
+    {
+        if (!IsLive)
+            return;
+        
+        summoned.Buff(this.Level, 0);
+    }
 
     public static Horse New => new Horse();
 }

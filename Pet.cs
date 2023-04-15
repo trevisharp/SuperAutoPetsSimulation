@@ -15,6 +15,7 @@ public abstract class Pet
         <6 => 2,
         _  => 3
     };
+    public bool IsLive => Life > 0;
 
     public abstract Pet Clone();
 
@@ -34,8 +35,12 @@ public abstract class Pet
         this.Life += life;
     }
 
+    public override string ToString()
+        => IsLive ? $"{GetType().Name} {Attack}/{Life}" : "";
+
     public virtual void AfterAttack(Team self, Team other, Shop shop) { }
     public virtual void BeforeAttack(Team self, Team other, Shop shop) { }
     public virtual void OnDie(Team self, Team other, Shop shop) { }
     public virtual void OnAllySummoned(Team self, Team other, Shop shop, Pet summoned) { }
+    public virtual void OnBattleStart(Team self, Team other) { }
 }

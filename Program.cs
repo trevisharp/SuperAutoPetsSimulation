@@ -2,7 +2,7 @@
 
 battle(
     Team.FromPets(Cricket.New, Cricket.New, Horse.New),
-    Team.FromPets(Cricket.New, Cricket.New, Cricket.New)
+    Team.FromPets(Mosquito.New, Mosquito.New, Mosquito.New)
 );
 
 
