@@ -7,6 +7,17 @@ public class Team : IEnumerable<Pet>
 {
     private Pet[] team = new Pet[5];
 
+    public void Swap(int i, int j)
+    {
+        var petA = team[i];
+        var petB = team[j];
+        if (petA is null || petB is null)
+            return;
+        
+        team[i] = petB;
+        team[j] = petA;
+    }
+
     public void Buy(Shop shop, int index)
     {
         var purchased = shop.Buy(index);
@@ -15,7 +26,7 @@ public class Team : IEnumerable<Pet>
         
         for (int i = 0; i < 5; i++)
         {
-            if (this.team is not null)
+            if (this.team[i] is not null)
                 continue;
             
             this.team[i] = purchased;

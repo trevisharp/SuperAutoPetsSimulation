@@ -3,10 +3,21 @@ using System.Linq;
 using System.Collections.Generic;
 using static System.Console;
 
-foreach (var value in iterativeBests())
+Shop shop = new Shop();
+Tier tier = new StandarTierOne();
+shop.Register(tier);
+shop.Refill();
+Team team = new Team();
+Bot bot = new RandomBot();
+
+do
 {
-    WriteLine(value);
-}
+    Console.WriteLine(shop);
+    Console.WriteLine(team);
+    Console.WriteLine();
+} while (!bot.Play(shop, team));
+
+
 
 IEnumerable<(Type, int)> getBestPieces()
 {
