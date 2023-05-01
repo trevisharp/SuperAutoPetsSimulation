@@ -80,4 +80,20 @@ public static class Simulator
             yield return (teamA, teamB);
         }
     }
+    
+    public static int GetResult(Team teamA, Team teamB)
+    {
+        var last = Play(teamA, teamB).LastOrDefault();
+
+        bool teamADies = last.Item1.All(p => p is null || p.Life < 1);
+        bool teamBDies = last.Item2.All(p => p is null || p.Life < 1);
+        
+        if (teamADies && teamBDies)
+            return 0;
+        
+        if (teamBDies)
+            return 1;
+        
+        return -1;
+    }
 }
