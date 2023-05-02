@@ -2,8 +2,11 @@ using System;
 
 public class RandomBot : Bot
 {
-    public override bool Play(Shop shop, Team team)
+    public override bool Play(Game game)
     {
+        var team = game.Team;
+        var shop = game.Shop;
+        
         var r = Random.Shared;
         var rand = r.NextSingle();
 

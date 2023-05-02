@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Shop
 {
-    public int Gold { get; private set; } = 10;
+    public int Gold { get; set; } = 10;
 
     public Pet this[int index]
         => index < ShopSize ? shop[index] : null;

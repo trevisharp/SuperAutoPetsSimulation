@@ -32,9 +32,14 @@ public static class Simulator
 
         var it = teamA.GetEnumerator();
         var ie = teamB.GetEnumerator();
-        it.MoveNext();
-        ie.MoveNext();
+
+        bool hasTeams = true;
+        hasTeams &= it.MoveNext();
+        hasTeams  &= ie.MoveNext();
+
         yield return (teamA, teamB);
+        if (!hasTeams)
+            yield break;
         
         while (true)
         {

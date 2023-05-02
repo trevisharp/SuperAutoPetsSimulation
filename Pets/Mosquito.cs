@@ -14,6 +14,9 @@ public class Mosquito : Pet
     public override void OnBattleStart(Team self, Team other)
     {
         var pet = other.GetRandomPet();
+        if (pet is null)
+            return;
+        
         pet.ReciveDamage(1);
     }
 

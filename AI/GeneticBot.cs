@@ -8,7 +8,7 @@ public class GeneticBot : Bot
 
     public Chromosome Chromosome { get; private set; }
 
-    public override bool Play(Shop shop, Team team)
+    public override bool Play(Game game)
     {
         return true;
     }
@@ -37,43 +37,7 @@ public class GeneticBot : Bot
             foreach (var chromo in population)
                 dict.Add(chromo, 0);
             
-            int stages = 2;
-            for (int s = 0; s < stages; s++)
-            {
-                var teamDict = new Dictionary<GeneticBot, (Shop shop, Team team)>();
-                foreach (var bot in bots)
-                {
-                    Shop shop = new Shop();
-                    Team team = new Team();
-                    while (!bot.Play(shop, team));
-                    teamDict.Add(bot, (shop, team));
-                }
-
-                foreach (var bot1 in bots)
-                {
-                    foreach (var bot2 in bots)
-                    {
-                        if (bot1 == bot2)
-                            continue;
-
-                        var team1 = teamDict[bot1].team;
-                        var team2 = teamDict[bot2].team;
-                        var res = Simulator.GetResult(team1, team2);
-
-                        if (res == 0)
-                        {
-                            dict[bot1.Chromosome] += .5f;
-                            dict[bot2.Chromosome] += .5f;
-                        }
-                        else if (res > 0)
-                            dict[bot1.Chromosome]++;
-                        else dict[bot2.Chromosome]++;
-                    }
-                }
-            }
-            
-            foreach (var chromo in population)
-                dict[chromo] /= 2 * gameCount;
+            // TODO
 
             var fits =
                 from el in population
