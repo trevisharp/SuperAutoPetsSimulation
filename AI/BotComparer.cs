@@ -7,6 +7,9 @@ public class BotComparer
     public void Add(Bot bot)
         => this.bots.Add(bot);
     
+    public void AddRange(IEnumerable<Bot> bots)
+        => this.bots.AddRange(bots);
+    
     public Dictionary<Bot, float> Avaliate(int N)
     {
         const int rounds = 2;

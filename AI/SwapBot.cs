@@ -9,7 +9,7 @@ public class SwapBot : Bot
         
         var teamSize = team.Count();
 
-        for (int i = 0; i < teamSize; i++)
+        for (int i = 0; i < teamSize - 1; i++)
         {
             var pet = team[i];
             var iPower = pet.Life * pet.Attack;
@@ -26,7 +26,7 @@ public class SwapBot : Bot
         
         if (teamSize < 5 && shop.Gold > 2 && shop.ShopSize > 0)
         {
-            shop.Buy(0);
+            team.Buy(shop, 0);
             return false;
         }
 

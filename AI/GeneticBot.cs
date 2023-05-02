@@ -15,7 +15,8 @@ public class GeneticBot : Bot
 
     public GeneticBot Fit(
         int N = 1000, int genesSize = 1024, int genesWidth = 1024, 
-        float prob = 0.01f, int limit = 5000, int nonImprovingLimit = 100
+        float prob = 0.01f, int fitTests = 10,
+        int limit = 5000, int nonImprovingLimit = 100
     )
     {
         int gameCount = (N - 1) * (N - 1);
@@ -24,6 +25,7 @@ public class GeneticBot : Bot
             chromosomes[i] = new Chromosome(genesSize, genesWidth);
         
         IEnumerable<Chromosome> population = chromosomes;
+        IEnumerable<Bot> oldBots = null;
         var dict = new Dictionary<Chromosome, float>();
         float betsFit = 0f;
         int count = 0;
@@ -33,23 +35,21 @@ public class GeneticBot : Bot
                 from el in population
                 select new GeneticBot(el);
             
-            dict.Clear();
-            foreach (var chromo in population)
-                dict.Add(chromo, 0);
-            
-            // TODO
+            BotComparer comparer = new BotComparer();
+            comparer.AddRange(bots);
+            if (oldBots is not null)
+                comparer.AddRange(oldBots);
+            var fits = comparer.Avaliate(fitTests);
 
-            var fits =
-                from el in population
-                select dict[el];
-            var newBestFit = fits.MaxBy(fit => fit);
-
+            var newBestFit = fits.Max(fit => fit.Value);
             if (newBestFit < betsFit)
                 count++;
             else count = 0;
             
             if (count >= nonImprovingLimit)
                 break;
+
+            oldBots = bots;
             
             population = population
                 .Epoch(p => dict[p], prob);
