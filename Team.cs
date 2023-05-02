@@ -7,6 +7,9 @@ public class Team : IEnumerable<Pet>
 {
     private Pet[] team = new Pet[5];
 
+    public Pet this[int index]
+        => this.team[index];
+
     public void Swap(int i, int j)
     {
         var petA = team[i];

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using static System.Console;
+﻿using static System.Console;
 
 BotComparer comparer = new BotComparer();
 
@@ -11,11 +8,17 @@ comparer.Add(rndBot);
 HumbleBot hmbBot = new HumbleBot();
 comparer.Add(hmbBot);
 
+SwapBot swpBot = new SwapBot();
+comparer.Add(swpBot);
+
 var result = comparer.Avaliate(10000);
 
-Console.WriteLine(
+WriteLine(
     $"Humble: {result[hmbBot]}"
 );
-Console.WriteLine(
+WriteLine(
     $"Random: {result[rndBot]}"
+);
+WriteLine(
+    $"Swap: {result[swpBot]}"
 );
